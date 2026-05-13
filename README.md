@@ -1,1 +1,1 @@
-# Pre_entrega_QA
+Este proyecto contiene pruebas automatizadas realizadas con Python, Selenium y Pytest para validar funcionalidades del sitio SauceDemo.

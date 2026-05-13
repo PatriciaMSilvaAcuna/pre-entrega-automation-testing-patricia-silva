@@ -24,5 +24,17 @@ def get_driver():
 
  #paso el driver y los datos que necesito para el login
 def login(driver, username, password):
-    
+    #configuramos una espera para la carga de los elementos
+
+    wait = WebDriverWait(driver,10)
+
     driver.get("https://www.saucedemo.com")
+
+    # localizamos el username, para eso buscamos el selector.
+    #verificamos la presencia del elemento ID
+    wait.until(
+        EC.presence_of_element_located((By.ID,"user-name"))
+    ).send_keys(username)
+
+    driver.find_element(By.ID,"password").send_keys(password)
+    driver.find_element(By.ID,"login-button").click()
