@@ -25,3 +25,8 @@ Instalar las dependencias necesarias ejecutando:
 
 ```bash
 pip install -r requirements.txt
+```
+
+##  Autor
+
+Patricia M. Silva
