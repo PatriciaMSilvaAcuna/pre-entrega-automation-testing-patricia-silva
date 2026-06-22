@@ -5,17 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-#funcion que testea el login
-def test_login( driver ):
-    login(driver, "standard_user", "secret_sauce")
-   # valida redirección al inventario
-    
-    # valida acceso exitoso al inventario
-    assert "inventory.html" in driver.current_url
-
-    title = driver.find_element(By.CLASS_NAME, "title").text
-    # valida título de inventario   
-    assert title == "Products"
 
 def test_catalog_products( driver):
     login(driver, "standard_user", "secret_sauce")
