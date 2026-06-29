@@ -3,7 +3,7 @@
 import requests
 # URL del endpoint al que vamos a enviar la solicitud.
 # En este caso es el endpoint de login de Reqres.
-URL_BASE = "https://reqres.in/api/login"
+URL_BASE = "https://reqres.in/api"
 
 # Headers de la solicitud.
 # Los headers contienen información adicional que la API necesita.
@@ -24,25 +24,27 @@ creds = {
 
 }
 
-#def get_users():
- #   response = requests.get(URL_BASE,headers=HEADER)
+def get_users():
+    return requests.get(
+        f"{URL_BASE}/users", headers=HEADER 
+    )
 #    #puedo hacer validaciones
 #
-#    if response.status_code == 200:
-#       print(response.json())
-#    else:
-#        print("error")
+    if response.status_code == 200:
+       print(response.json())
+    else:
+        print("error")
 
-#    print(response.status_code)
+    print(response.status_code)
 
 
 #get_users()
 # Función que realiza un login mediante una petición POST.
 def login_post():
-    # Envía una solicitud POST al endpoint de login.
-    #
+    #Envía una solicitud POST al endpoint de login.
+    
     # URL_BASE  -> endpoint al que se envía la petición
-    # headers   -> información adicional (API Key)
+    #headers   -> información adicional (API Key)
     # json      -> datos enviados en el Body
     result = requests.post(URL_BASE, headers=HEADER,json=creds)
 
@@ -67,17 +69,38 @@ def login_post():
     # Si el código de respuesta es 200,
     # consideramos que el login fue exitoso.
     if result.status_code == 200:
-        print("Login exitoso")
+     print("Login exitoso")
 
         # Obtiene el token devuelto por la API.
         # El token suele utilizarse para acceder
         # a otros endpoints protegidos.
-        print("Token:", result.json()["token"])
+     print("Token:", result.json()["token"])
     else:
          # Si la respuesta no es 200,
         # informamos que ocurrió un error.
-        print("Error en el login")
+     print("Error en el login")
 
 
-# Ejecuta la función para probar el login.
-login_post()
+
+
+def create_user(name, job):
+    data = {
+        "name":name,
+        "job":job
+
+    }
+    return requests.post(
+        f"{URL_BASE}/users",headers=HEADER,json=data
+    )
+
+def login_user(email, password):
+    data ={
+         "email":email,
+         "password": password
+
+
+    }
+    return requests.post(
+
+        f"{URL_BASE}/login", json=data, headers=HEADER
+    )

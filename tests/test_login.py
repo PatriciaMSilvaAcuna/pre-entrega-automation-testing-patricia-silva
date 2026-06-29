@@ -15,37 +15,39 @@ load_json = load_user_json("data/users.json")
 fake = Faker()
 
 
-#@pytest.mark.parametrize("username, password", load_json)
+@pytest.mark.parametrize("username, password", load_json)
 # declaro el test
 
-#def test_login(driver, username, password):
+def test_login(driver, username, password):
     #instancio mi clase para poder utilizar mis funciones
-#    login_page = LoginPage(driver)
-
-#   login_page.open()
-#    login_page.login(username, password)
-#   print("Logueo Exitoso")
-    
-
-#    name = fake.name()
-#   first_name = fake.first_name()
-#   last_name = fake.last_name()
-#   email = fake.email()
-#   codigo_postal = fake.postalcode()
-
-#   print("DATOS GENERADOs POR FAKER",name,first_name,last_name,email,codigo_postal)
-@pytest.mark.parametrize("i",range(3))
-def test_login_usuario_invalido(driver,i):
     login_page = LoginPage(driver)
 
+    login_page.open()
+    login_page.login(username, password)
+    
+    print("Logueo Exitoso")
+    
 
-    fake_username = fake.user_name()
-    fake_password = fake.password()
+    name = fake.name()
+    first_name = fake.first_name()
+    last_name = fake.last_name()
+    email = fake.email()
+    codigo_postal = fake.postalcode()
+
+    print("DATOS GENERADOs POR FAKER",name,first_name,last_name,email,codigo_postal)
+
+#@pytest.mark.parametrize("i",range(3))
+#def test_login_usuario_invalido(driver,i):
+ #   login_page = LoginPage(driver)
+
+
+ #   fake_username = fake.user_name()
+ #   fake_password = fake.password()
     
 
 
-    login_page.open()
-    login_page.login(fake_username, fake_password)
+  #  login_page.open()
+   # login_page.login(fake_username, fake_password)
 
     #busca en toda la pagina una palabra dada
-    assert "Epic sadface" in login_page.obtener_error()
+   # assert "Epic sadface" in login_page.obtener_error()

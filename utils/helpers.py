@@ -4,6 +4,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 # importo los servicios para actualizar el navegador 
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 
 from selenium.webdriver.common.by import By
@@ -11,18 +12,51 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import csv
 import json
+import tempfile
 # funcion que nos permite instalar el Driver
 
 def get_driver():
+
+    # Configuración de Chrome para automatización
+    options = Options()
+
+    # Maximiza la ventana al iniciar.
+    options.add_argument("--start-maximized")
+    options.add_argument("--incognito")
+    # Perfil temporal de Chrome
+    temp_profile = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={temp_profile}")
+    # Desactiva el aviso de guardar contraseñas.
+    options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service": False,
+            "profile.password_manager_enabled": False,
+        }
+    )
+
+    # Desactiva notificaciones del navegador.
+    options.add_argument("--disable-notifications")
+
+    # Reduce mensajes de que el navegador está siendo controlado.
+    options.add_experimental_option(
+        "excludeSwitches",
+        ["enable-automation"]
+    )
+
+    options.add_experimental_option(
+        "useAutomationExtension",
+        False
+    )
+
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
-# nos tiene que devolver el driver
+
+    driver = webdriver.Chrome(
+        service=service,
+        options=options
+    )
+
     return driver
-
-#necesito abrir el navegador
-# para ello creo un Fx
- 
-
 #funcion que me permite leer mi archivo csv
 # necesito pasarle la ruta a mi archivo
 def load_user_csv(path):

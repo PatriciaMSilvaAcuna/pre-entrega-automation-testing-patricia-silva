@@ -20,25 +20,32 @@ class LoginPage:
    
     #declaro constructor
     def __init__(self, driver):
+        # Guarda la instancia del navegador.
         self.driver = driver
+        
+        # Espera explícita para sincronizar las acciones.
         self.wait = WebDriverWait(driver, 10)
     
     #creo metodo que abra el navegador con tal url
 
     def open(self):
         self.driver.get(self.URL)
-    # HAGO EL LOGIN
+    
+    #Realizo el login con las credenciales recibidas
     def login(self, username, password):
          
          self.wait.until(
         EC.presence_of_element_located(self._USERNAME)).send_keys(username)
 
   
-   # Espera explícita para asegurar la presencia de los campos
+        # Espera explícita para asegurar la presencia de los campos
          self.wait.until(
         EC.presence_of_element_located(self._PASSWORD)).send_keys(password)
          self.wait.until(
         EC.presence_of_element_located(self._LOGIN_BTN)).click()
-
-def obtener_error(self):
-    return self.driver.find_element(*self._ERROR_MESSAGE).text
+    
+    # Devuelve el mensaje mostrado cuando el login es inválido.
+    def obtener_error(self):
+        return self.wait.until(
+        EC.visibility_of_element_located(self._ERROR_MESSAGE)
+    ).text
